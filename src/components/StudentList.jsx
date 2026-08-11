@@ -13,8 +13,9 @@ export default function StudentList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const studentRes = await fetch("http://localhost:5000/api/students");
-        const studentData = await studentRes.json();
+       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+       const studentRes = await fetch(`${apiUrl}/api/students`);
+       const studentData = await studentRes.json();
 
         if (studentData.success) {
           const studentList = studentData.data;

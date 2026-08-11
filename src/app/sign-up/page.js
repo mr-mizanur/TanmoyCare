@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signUp } from "@/lib/auth-client"; // আপনার auth-client থেকে
+import { signUp } from "@/lib/auth-client"; 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { UserPlus, Mail, Lock, User, ShieldAlert, GraduationCap, Building2, Layers, Hash, Image as ImageIcon, Loader2, BookOpen } from "lucide-react";
@@ -11,7 +11,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  // স্টুডেন্ট প্রোফাইল অতিরিক্ত ফিল্ডস (ক্লাস সহ)
+  
   const [studentClass, setStudentClass] = useState("11");
   const [batch, setBatch] = useState("HSC 2026");
   const [studentRoll, setStudentRoll] = useState("");
@@ -19,7 +19,7 @@ export default function SignUpPage() {
   const [collegeName, setCollegeName] = useState("");
   const [groupName, setGroupName] = useState("Science");
 
-  // ইমেজ আপলোড স্টেট
+ 
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -30,7 +30,7 @@ export default function SignUpPage() {
   
   const router = useRouter();
 
-  // ImgBB তে ছবি আপলোড করার ফাংশন
+
   const handleImageUpload = async (file) => {
     if (!file) return;
     setUploadingImage(true);
@@ -58,7 +58,7 @@ export default function SignUpPage() {
     }
   };
 
-  // ফর্ম সাবমিট ও রেজিস্ট্রেশন
+ 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
@@ -76,7 +76,7 @@ export default function SignUpPage() {
         password,
         name,
         role: "student",
-        studentClass, // ক্লাস ডাটা পাঠানো হচ্ছে
+        studentClass, 
         batch,
         studentRoll,
         academicYear,
@@ -115,8 +115,7 @@ export default function SignUpPage() {
         )}
 
         <form onSubmit={handleSignUp} className="space-y-4">
-          
-          {/* প্রোফাইল ছবি আপলোড সেকশন */}
+        
           <div className="flex flex-col items-center justify-center space-y-3 pb-2">
             <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-indigo-500/50 bg-slate-950 flex items-center justify-center">
               {imagePreview ? (
@@ -149,7 +148,7 @@ export default function SignUpPage() {
             </label>
           </div>
 
-          {/* নাম ও ইমেল */}
+         
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Full Name</label>
@@ -182,7 +181,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* পাসওয়ার্ড ও ক্লাস নির্বাচন */}
+        
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Password</label>
@@ -215,7 +214,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* ব্যাচ নাম ও রোল */}
+     
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Batch Name</label>
@@ -248,7 +247,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* শিক্ষাবর্ষ ও কলেজ নাম */}
+         
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Academic Year</label>
@@ -278,7 +277,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* গ্রুপ নাম */}
+          
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Group Name</label>
             <div className="relative">

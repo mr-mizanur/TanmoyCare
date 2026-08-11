@@ -2,22 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { Loader2, Save, Edit3, User, BookOpen, Award, Bell, LogOut, CheckCircle, AlertCircle } from "lucide-react";
-import { authClient } from "@/lib/auth-client"; // আপনার Better Auth ক্লায়েন্ট
+import { authClient } from "@/lib/auth-client"; 
 
 export default function StudentDashboard() {
   const { data: session, isPending } = authClient.useSession();
-  const [activeTab, setActiveTab] = useState("overview"); // overview, results, edit-profile
+  const [activeTab, setActiveTab] = useState("overview"); 
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // স্টুডেন্টের রেজাল্ট এবং নোটিশ ডেটা স্টেট
+  
   const [studentResults, setStudentResults] = useState([]);
   const [notices, setNotices] = useState([]);
   const [fetchingData, setFetchingData] = useState(false);
 
-  // ফর্ম স্টেট (প্রোফাইল এডিট করার জন্য)
+ 
   const [formData, setFormData] = useState({
     name: "",
     studentRoll: "",
@@ -29,7 +29,7 @@ export default function StudentDashboard() {
     image: "",
   });
 
-  // সেশন থেকে ডেটা লোড করা
+  
   useEffect(() => {
     if (session?.user) {
       setFormData({
@@ -43,7 +43,7 @@ export default function StudentDashboard() {
         image: session.user.image || "",
       });
 
-      // যদি স্টুডেন্ট রোল থাকে, তবে তার রেজাল্ট ফেচ করা
+     
       if (session.user.studentRoll) {
         fetchStudentResults(session.user.studentRoll);
       }
@@ -51,10 +51,11 @@ export default function StudentDashboard() {
     }
   }, [session]);
 
-  // নির্দিষ্ট রোল দিয়ে রেজাল্ট ফেচ করার ফাংশন
+ 
   const fetchStudentResults = async (roll) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/results/roll/${roll}`);
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await fetch(`${API_URL}/api/results/roll/${roll}`);
       const data = await res.json();
       if (data.success) {
         setStudentResults(data.data);

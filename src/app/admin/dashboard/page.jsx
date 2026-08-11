@@ -3,21 +3,20 @@
 import { useState, useEffect } from "react";
 import { Award, Bell, FileText, Users, Trash2, ShieldAlert, ShieldCheck, CheckCircle, Loader2, PlusCircle, UserCheck, Calendar, BookOpen, Building2, Shield, Search } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("result");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
-  // ডাটা লিস্ট স্টেট
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [notices, setNotices] = useState([]);
   
-  // স্টুডেন্ট ট্যাব ফিল্টার স্টেট ("all", "11", "12")
   const [selectedStudentClass, setSelectedStudentClass] = useState("all");
   const [studentSearchQuery, setStudentSearchQuery] = useState("");
 
-  // রেজাল্ট ফর্ম স্টেট (studentRoll ব্যবহার করা হয়েছে)
   const [resultForm, setResultForm] = useState({
     studentRoll: "",
     examName: "",
@@ -25,29 +24,25 @@ export default function AdminDashboard() {
     mcqMarks: "",
   });
 
-  // নোটিশ ফর্ম স্টেট
   const [noticeForm, setNoticeForm] = useState({
     title: "",
     description: "",
   });
 
-  // ইউজার এবং নোটিশ ডাটা ফেচ ও রোল অনুযায়ী ফিল্টার করার জন্য
   const fetchDashboardData = async () => {
     try {
-      const studentRes = await fetch("http://localhost:5000/api/students");
+      const studentRes = await fetch(`${API_URL}/api/students`);
       const studentData = await studentRes.json();
       
       if (studentData.success) {
         const allUsers = studentData.data;
 
-        // ১. রোল চেক করে স্টুডেন্ট লিস্ট আলাদা করা
         const onlyStudents = allUsers.filter((u) => {
           const role = u.role ? u.role.toLowerCase() : "student";
           return role === "student";
         });
         setStudents(onlyStudents);
 
-        // ২. রোল চেক করে অ্যাডমিন লিস্ট আলাদা করা
         const onlyAdmins = allUsers.filter((u) => {
           const role = u.role ? u.role.toLowerCase() : "";
           return role === "admin";
@@ -55,7 +50,7 @@ export default function AdminDashboard() {
         setAdmins(onlyAdmins);
       }
 
-      const noticeRes = await fetch("http://localhost:5000/api/notices");
+      const noticeRes = await fetch(`${API_URL}/api/notices`);
       const noticeData = await noticeRes.json();
       if (noticeData.success) setNotices(noticeData.data);
     } catch (err) {
@@ -67,14 +62,13 @@ export default function AdminDashboard() {
     fetchDashboardData();
   }, []);
 
-  // ১. রেজাল্ট সাবমিট হ্যান্ডলার
   const handleResultSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });
 
     try {
-      const res = await fetch("http://localhost:5000/api/results", {
+      const res = await fetch(`${API_URL}/api/results`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(resultForm),
@@ -94,14 +88,13 @@ export default function AdminDashboard() {
     }
   };
 
-  // ২. নোটিশ সাবমিট হ্যান্ডলার
   const handleNoticeSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });
 
     try {
-      const res = await fetch("http://localhost:5000/api/notices", {
+      const res = await fetch(`${API_URL}/api/notices`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(noticeForm),
@@ -122,11 +115,10 @@ export default function AdminDashboard() {
     }
   };
 
-  // ৩. নোটিশ ডিলিট হ্যান্ডলার
   const handleDeleteNotice = async (id) => {
     if (!confirm("Are you sure you want to delete this notice?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/notices/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/api/notices/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
         setNotices(notices.filter((n) => n._id !== id));
@@ -136,11 +128,10 @@ export default function AdminDashboard() {
     }
   };
 
-  // ৪. স্টুডেন্ট/ইউজার ডিলিট হ্যান্ডলার
   const handleDeleteStudent = async (id) => {
     if (!confirm("Are you sure you want to delete this user?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/students/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/api/students/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
         setStudents(students.filter((s) => s._id !== id));
@@ -151,11 +142,10 @@ export default function AdminDashboard() {
     }
   };
 
-  // ৫. স্টুডেন্ট ব্লক/আনব্লক হ্যান্ডলার
   const handleToggleBlock = async (id, currentStatus) => {
     const newStatus = !currentStatus;
     try {
-      const res = await fetch(`http://localhost:5000/api/students/block/${id}`, {
+      const res = await fetch(`${API_URL}/api/students/block/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isBlocked: newStatus }),
@@ -170,7 +160,6 @@ export default function AdminDashboard() {
     }
   };
 
-  // স্টুডেন্ট ফিল্টারিং লজিক (ক্লাস এবং সার্চ কুয়েরি অনুযায়ী)
   const filteredStudents = students.filter((student) => {
     if (selectedStudentClass !== "all") {
       const sClass = student.studentClass ? String(student.studentClass).trim() : "11";
@@ -185,7 +174,6 @@ export default function AdminDashboard() {
     return name.includes(query) || roll.includes(query) || college.includes(query);
   });
 
-  // বিভিন্ন ক্লাসের স্টুডেন্ট কাউন্ট
   const countAllStudents = students.length;
   const countClass11 = students.filter(s => (s.studentClass ? String(s.studentClass).trim() : "11") === "11").length;
   const countClass12 = students.filter(s => String(s.studentClass).trim() === "12").length;
@@ -194,7 +182,6 @@ export default function AdminDashboard() {
     <main className="min-h-screen bg-slate-950 text-white p-4 sm:p-8">
       <div className="max-w-5xl mx-auto space-y-8">
         
-        {/* ড্যাশবোর্ড হেডার ও ট্যাব সুইচিং */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-extrabold flex items-center gap-2">
@@ -240,7 +227,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* অ্যালার্ট মেসেজ */}
         {message.text && (
           <div className={`p-4 rounded-xl border text-xs flex items-center gap-2 ${
             message.type === "success" 
@@ -252,10 +238,8 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* মূল কন্টেন্ট এরিয়া */}
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
           
-          {/* ================= 1. ADD RESULT TAB ================= */}
           {activeTab === "result" && (
             <form onSubmit={handleResultSubmit} className="space-y-5">
               <h2 className="text-lg font-bold flex items-center gap-2 text-indigo-400 border-b border-slate-800 pb-3">
@@ -325,7 +309,6 @@ export default function AdminDashboard() {
             </form>
           )}
 
-          {/* ================= 2. NOTICES TAB ================= */}
           {activeTab === "notice" && (
             <div className="space-y-8">
               <form onSubmit={handleNoticeSubmit} className="space-y-5 border-b border-slate-800 pb-8">
@@ -369,7 +352,6 @@ export default function AdminDashboard() {
                 </button>
               </form>
 
-              {/* নোটিশ লিস্ট ও ডিলিট অপশন */}
               <div className="space-y-4">
                 <h3 className="text-sm font-bold text-slate-300">Existing Notices ({notices.length})</h3>
                 {notices.length === 0 ? (
@@ -397,7 +379,6 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* ================= 3. STUDENTS MANAGEMENT TAB ================= */}
           {activeTab === "students" && (
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-slate-800 pb-4">
@@ -405,7 +386,6 @@ export default function AdminDashboard() {
                   <Users className="w-5 h-5" /> Enrolled Students Directory ({students.length})
                 </h2>
 
-                {/* ক্লাস ফিল্টার ট্যাব ও সার্চ */}
                 <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
                   <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 w-full sm:w-auto">
                     <button
@@ -459,7 +439,6 @@ export default function AdminDashboard() {
                     return (
                       <div key={student._id} className="bg-slate-950/60 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         
-                        {/* স্টুডেন্ট ইনফো ও ইমেজ */}
                         <div className="flex items-start gap-3.5 min-w-0">
                           <div className="w-12 h-12 rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900 flex-shrink-0">
                             {student.image ? (
@@ -484,7 +463,6 @@ export default function AdminDashboard() {
                             
                             <p className="text-xs text-slate-400">{student.email}</p>
 
-                            {/* এক্সট্রা ডিটেইলস (Batch, Academic Year, College, Group) */}
                             <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-slate-300">
                               {student.collegeName && (
                                 <span className="flex items-center gap-1 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-300">
@@ -514,9 +492,7 @@ export default function AdminDashboard() {
                           </div>
                         </div>
 
-                        {/* অ্যাকশন বাটনস */}
                         <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-800">
-                          {/* ব্লক / আনব্লক বাটন */}
                           <button
                             onClick={() => handleToggleBlock(student._id, student.isBlocked)}
                             className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all ${
@@ -529,7 +505,6 @@ export default function AdminDashboard() {
                             <span>{student.isBlocked ? "Unblock" : "Block"}</span>
                           </button>
 
-                          {/* ডিলিট বাটন */}
                           <button
                             onClick={() => handleDeleteStudent(student._id)}
                             className="p-2 rounded-xl bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white transition-all"
@@ -547,7 +522,6 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* ================= 4. ADMINS MANAGEMENT TAB ================= */}
           {activeTab === "admins" && (
             <div className="space-y-4">
               <h2 className="text-lg font-bold flex items-center gap-2 text-indigo-400 border-b border-slate-800 pb-3">
@@ -561,7 +535,6 @@ export default function AdminDashboard() {
                   {admins.map((admin) => (
                     <div key={admin._id} className="bg-slate-950/60 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       
-                      {/* অ্যাডমিন ইনফো ও ইমেজ */}
                       <div className="flex items-start gap-3.5 min-w-0">
                         <div className="w-12 h-12 rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900 flex-shrink-0">
                           {admin.image ? (
@@ -585,9 +558,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
 
-                      {/* অ্যাকশন বাটনস */}
                       <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-800">
-                        {/* ব্লক / আনব্লক বাটন */}
                         <button
                           onClick={() => handleToggleBlock(admin._id, admin.isBlocked)}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all ${
@@ -600,7 +571,6 @@ export default function AdminDashboard() {
                           <span>{admin.isBlocked ? "Unblock" : "Block"}</span>
                         </button>
 
-                        {/* ডিলিট বাটন */}
                         <button
                           onClick={() => handleDeleteStudent(admin._id)}
                           className="p-2 rounded-xl bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white transition-all"

@@ -25,12 +25,12 @@ export default function SignInPage() {
         password,
       }, {
         onSuccess: (ctx) => {
-          // সফলভাবে লগইন হওয়ার পর ইউজারের রোল চেক করে রিডাইরেক্ট করা
+      
           const userRole = ctx.data?.user?.role;
           if (userRole === "admin") {
             router.push("/admin/dashboard");
           } else {
-            router.push("/student/dashboard");
+            router.push("/");
           }
         },
         onError: (ctx) => {
