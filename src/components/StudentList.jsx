@@ -8,7 +8,7 @@ export default function StudentList() {
   const [allResults, setAllResults] = useState({});
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedClass, setSelectedClass] = useState("all"); // "all", "11", "12"
+  const [selectedClass, setSelectedClass] = useState("all"); 
 
   useEffect(() => {
     async function fetchData() {
@@ -19,7 +19,6 @@ export default function StudentList() {
         if (studentData.success) {
           const studentList = studentData.data;
 
-          // শুধু যাদের role "student" (অথবা রোল ফিল্ড আছে) তাদের ফিল্টার করে স্টেটে রাখা
           const onlyStudents = studentList.filter((s) => {
             const role = s.role ? s.role.toLowerCase() : "student";
             return role === "student" && s.studentRoll;
@@ -50,15 +49,12 @@ export default function StudentList() {
     fetchData();
   }, []);
 
-  // ক্লাস এবং সার্চ ফিল্টারিং লজিক
   const filteredStudents = students.filter((student) => {
-    // ক্লাস ফিল্টার চেক
     if (selectedClass !== "all") {
       const studentClass = student.studentClass ? String(student.studentClass).trim() : "11";
       if (studentClass !== selectedClass) return false;
     }
 
-    // সার্চ কুয়েরি চেক
     const query = searchQuery.toLowerCase();
     const name = student.name ? student.name.toLowerCase() : "";
     const roll = student.studentRoll ? String(student.studentRoll).toLowerCase() : "";
@@ -76,7 +72,7 @@ export default function StudentList() {
     );
   }
 
-  // বিভিন্ন ক্লাসের স্টুডেন্ট কাউন্ট বের করা
+  
   const countAll = students.length;
   const count11 = students.filter(s => (s.studentClass ? String(s.studentClass).trim() : "11") === "11").length;
   const count12 = students.filter(s => String(s.studentClass).trim() === "12").length;
@@ -84,10 +80,9 @@ export default function StudentList() {
   return (
     <div className="space-y-4">
       
-      {/* ফিল্টার ট্যাব এবং সার্চবার */}
+      
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-2.5 rounded-xl shadow-lg">
         
-        {/* ক্লাস ট্যাব বাটনস */}
         <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 w-full sm:w-auto">
           <button
             onClick={() => setSelectedClass("all")}
@@ -115,7 +110,6 @@ export default function StudentList() {
           </button>
         </div>
 
-        {/* সার্চবার */}
         <div className="relative w-full sm:w-60">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
             <Search className="w-3.5 h-3.5" />
@@ -147,7 +141,7 @@ export default function StudentList() {
                 className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg hover:border-indigo-500/40 transition-all flex flex-col justify-between"
               >
                 <div>
-                  {/* ছোট হেডার (ছবি, নাম ও রোল) */}
+                  
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg overflow-hidden border border-indigo-500/30 bg-slate-950 flex-shrink-0">
                       {student.image ? (
@@ -175,7 +169,7 @@ export default function StudentList() {
                     </div>
                   </div>
 
-                  {/* রেজাল্ট লিস্ট (CQ, MCQ ও Total সহ) */}
+                  
                   <div className="mt-3 pt-2 border-t border-slate-800/80">
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-[10px] font-semibold flex items-center gap-1 text-indigo-300">

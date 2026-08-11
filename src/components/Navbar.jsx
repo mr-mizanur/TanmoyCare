@@ -14,14 +14,14 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const pathname = usePathname();
 
-  // Better Auth এর রিয়েল সেশন হুক
+
   const { data: session, isPending } = authClient.useSession();
 
-  // Role check logic
+
   const isAdmin = session?.user?.role === "admin";
   const isStudent = session?.user?.role === "student";
 
-  // একটিভ লিংক চেক করার ফাংশন
+
   const isActive = (path) => pathname === path;
 
   return (
@@ -29,12 +29,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
          
-          {/* লোগো সেকশন */}
+        
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center gap-2">
-              <div className="p-2 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-500/30">
-                <BookOpen className="w-6 h-6" />
-              </div>
+             
               <div>
                 <span className="text-xl font-bold text-white tracking-tight">T@NMOY'S</span>
                 <span className="block text-[10px] text-indigo-400 font-semibold tracking-[0.2em]">PRIVATE CARE</span>
@@ -42,7 +40,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* ডেস্কটপ মেনু */}
+       
           <nav className="hidden md:flex items-center space-x-1">
             <Link 
               href="/" 
@@ -70,7 +68,7 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Auth & Role Section (Desktop) */}
+         
           <div className="hidden md:flex items-center space-x-4">
             {!isPending && session ? (
               <div className="relative">
@@ -116,7 +114,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* মোবাইল মেনু টগল বাটন */}
+         
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -129,7 +127,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* মোবাইল ড্রপডাউন মেনু */}
+    
       {isOpen && (
         <div className="md:hidden bg-slate-950 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
           <nav className="flex flex-col space-y-1">
