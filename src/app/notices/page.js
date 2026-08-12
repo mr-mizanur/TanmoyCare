@@ -41,7 +41,7 @@ export default function NoticesPage() {
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         
-        {/* Back to Home Button */}
+    
         <div>
           <Link
             href="/"
@@ -53,7 +53,7 @@ export default function NoticesPage() {
         </div>
 
         <div className="max-w-3xl mx-auto space-y-6">
-          {/* Header Section */}
+         
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-xl flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-300">
@@ -70,7 +70,7 @@ export default function NoticesPage() {
             </span>
           </div>
 
-          {/* Notices List */}
+         
           {notices.length === 0 ? (
             <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-12 text-center text-zinc-400 text-xs">
               No notices published yet.

@@ -10,19 +10,11 @@ import { Loader2 } from "lucide-react";
 
 
 
-
-
-
-
-
-
-
 export default function Home() {
   const { data: session, isPending } = useSession();
   const [results, setResults] = useState([]);
   const [loadingResults, setLoadingResults] = useState(false);
 
- 
 
   return (
     <main className="bg-slate-950 min-h-screen flex flex-col justify-between text-white">
