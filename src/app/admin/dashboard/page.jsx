@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { Award, Bell, FileText, Users, Trash2, ShieldAlert, ShieldCheck, CheckCircle, Loader2, PlusCircle, UserCheck, Calendar, BookOpen, Building2, Shield, Search } from "lucide-react";
-import NotFoundPage from "@/app/not-found"; // অথবা আপনার প্রজেক্ট অনুযায়ী পাথ ঠিক করে নিন
+import NotFoundPage from "@/app/not-found"; 
+import { useSession } from "@/lib/auth-client"; 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export default function AdminDashboard() {
-  // ১. ইউজার রোল এবং অথেন্টিকেশন স্টেট
-  const [userRole, setUserRole] = useState(null);
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  
+  const { data: session, isPending: checkingAuth } = useSession();
+  
+  const userRole = session?.user?.role ? session.user.role.toLowerCase() : "student";
 
   const [activeTab, setActiveTab] = useState("result");
   const [loading, setLoading] = useState(false);
@@ -34,35 +36,9 @@ export default function AdminDashboard() {
     description: "",
   });
 
-  // ২. লগইন করা ইউজারের রোল চেক করা
-  useEffect(() => {
-    const checkUserRole = async () => {
-      try {
-        // আপনার অথ ক্লায়েন্ট বা সেশন থেকে ইউজারের রোল ফেচ করুন
-        // উদাহরণস্বরূপ লোকালস্টোরেজ বা অথ সেশন API কল:
-        const res = await fetch(`${API_URL}/api/auth/me`, { credentials: "include" });
-        const data = await res.json();
-        
-        if (data && data.success && data.user) {
-          setUserRole(data.user.role ? data.user.role.toLowerCase() : "student");
-        } else {
-          // বিকল্প হিসেবে আপনি যদি Better-Auth বা অন্য কিছু ব্যবহার করেন সেখান থেকে রোল পেতে পারেন
-          setUserRole("student"); 
-        }
-      } catch (err) {
-        console.error("Failed to verify user role", err);
-        setUserRole("student");
-      } finally {
-        setCheckingAuth(false);
-      }
-    };
-
-    checkUserRole();
-  }, []);
-
   const fetchDashboardData = async () => {
     try {
-      const studentRes = await fetch(`${API_URL}/api/students`);
+      const studentRes = await fetch(`${API_URL}/api/students`, { credentials: "include" });
       const studentData = await studentRes.json();
       
       if (studentData.success) {
@@ -81,7 +57,7 @@ export default function AdminDashboard() {
         setAdmins(onlyAdmins);
       }
 
-      const noticeRes = await fetch(`${API_URL}/api/notices`);
+      const noticeRes = await fetch(`${API_URL}/api/notices`, { credentials: "include" });
       const noticeData = await noticeRes.json();
       if (noticeData.success) setNotices(noticeData.data);
     } catch (err) {
@@ -95,7 +71,7 @@ export default function AdminDashboard() {
     }
   }, [userRole]);
 
-  // ৩. অথ চেক চলাকালীন লোডিং স্টেট
+ 
   if (checkingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-100">
@@ -104,7 +80,7 @@ export default function AdminDashboard() {
     );
   }
 
-  // ৪. যদি রোল admin না হয়, তবে 404 Not Found Page রেন্ডার করবে
+ 
   if (userRole !== "admin") {
     return <NotFoundPage />;
   }
@@ -118,6 +94,7 @@ export default function AdminDashboard() {
       const res = await fetch(`${API_URL}/api/results`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(resultForm),
       });
       const data = await res.json();
@@ -144,6 +121,7 @@ export default function AdminDashboard() {
       const res = await fetch(`${API_URL}/api/notices`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(noticeForm),
       });
       const data = await res.json();
@@ -165,7 +143,10 @@ export default function AdminDashboard() {
   const handleDeleteNotice = async (id) => {
     if (!confirm("Are you sure you want to delete this notice?")) return;
     try {
-      const res = await fetch(`${API_URL}/api/notices/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/api/notices/${id}`, { 
+        method: "DELETE",
+        credentials: "include" 
+      });
       const data = await res.json();
       if (data.success) {
         setNotices(notices.filter((n) => n._id !== id));
@@ -178,7 +159,10 @@ export default function AdminDashboard() {
   const handleDeleteStudent = async (id) => {
     if (!confirm("Are you sure you want to delete this user?")) return;
     try {
-      const res = await fetch(`${API_URL}/api/students/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/api/students/${id}`, { 
+        method: "DELETE",
+        credentials: "include" 
+      });
       const data = await res.json();
       if (data.success) {
         setStudents(students.filter((s) => s._id !== id));
@@ -195,6 +179,7 @@ export default function AdminDashboard() {
       const res = await fetch(`${API_URL}/api/students/block/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ isBlocked: newStatus }),
       });
       const data = await res.json();
