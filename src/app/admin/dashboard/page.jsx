@@ -2,10 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { Award, Bell, FileText, Users, Trash2, ShieldAlert, ShieldCheck, CheckCircle, Loader2, PlusCircle, UserCheck, Calendar, BookOpen, Building2, Shield, Search } from "lucide-react";
+import NotFoundPage from "@/app/not-found"; // অথবা আপনার প্রজেক্ট অনুযায়ী পাথ ঠিক করে নিন
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export default function AdminDashboard() {
+  // ১. ইউজার রোল এবং অথেন্টিকেশন স্টেট
+  const [userRole, setUserRole] = useState(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
   const [activeTab, setActiveTab] = useState("result");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -28,6 +33,32 @@ export default function AdminDashboard() {
     title: "",
     description: "",
   });
+
+  // ২. লগইন করা ইউজারের রোল চেক করা
+  useEffect(() => {
+    const checkUserRole = async () => {
+      try {
+        // আপনার অথ ক্লায়েন্ট বা সেশন থেকে ইউজারের রোল ফেচ করুন
+        // উদাহরণস্বরূপ লোকালস্টোরেজ বা অথ সেশন API কল:
+        const res = await fetch(`${API_URL}/api/auth/me`, { credentials: "include" });
+        const data = await res.json();
+        
+        if (data && data.success && data.user) {
+          setUserRole(data.user.role ? data.user.role.toLowerCase() : "student");
+        } else {
+          // বিকল্প হিসেবে আপনি যদি Better-Auth বা অন্য কিছু ব্যবহার করেন সেখান থেকে রোল পেতে পারেন
+          setUserRole("student"); 
+        }
+      } catch (err) {
+        console.error("Failed to verify user role", err);
+        setUserRole("student");
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+
+    checkUserRole();
+  }, []);
 
   const fetchDashboardData = async () => {
     try {
@@ -59,8 +90,24 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    fetchDashboardData();
-  }, []);
+    if (userRole === "admin") {
+      fetchDashboardData();
+    }
+  }, [userRole]);
+
+  // ৩. অথ চেক চলাকালীন লোডিং স্টেট
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-100">
+        <Loader2 className="w-8 h-8 animate-spin text-zinc-400" />
+      </div>
+    );
+  }
+
+  // ৪. যদি রোল admin না হয়, তবে 404 Not Found Page রেন্ডার করবে
+  if (userRole !== "admin") {
+    return <NotFoundPage />;
+  }
 
   const handleResultSubmit = async (e) => {
     e.preventDefault();
@@ -182,7 +229,6 @@ export default function AdminDashboard() {
     <main className="min-h-screen bg-zinc-950 text-zinc-100 p-4 sm:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         
-        {/* Top Header & Navigation Bar */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="space-y-1">
             <h1 className="text-xl font-bold flex items-center gap-2 text-zinc-100">
@@ -229,11 +275,7 @@ export default function AdminDashboard() {
         </div>
 
         {message.text && (
-          <div className={`p-4 rounded-2xl border text-xs flex items-center gap-2 ${
-            message.type === "success" 
-              ? "bg-zinc-900 border-zinc-700 text-zinc-200" 
-              : "bg-zinc-900 border-zinc-700 text-zinc-300"
-          }`}>
+          <div className="bg-zinc-900 border border-zinc-700 text-zinc-200 p-4 rounded-2xl text-xs flex items-center gap-2">
             <CheckCircle className="w-4 h-4 flex-shrink-0 text-zinc-400" />
             <span>{message.text}</span>
           </div>
