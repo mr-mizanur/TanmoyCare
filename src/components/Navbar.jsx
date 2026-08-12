@@ -33,7 +33,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center gap-2">
              <div>
-              <img src="/logo.png" alt="Logo" className="w-10 h-10 rounded-full object-cover" />
+              <img src="/logo.PNG" alt="Logo" className="w-10 h-10 rounded-full object-cover" />
              </div>
               <div>
                 <span className="text-xl font-bold text-white tracking-tight">T@NMOY'S</span>
