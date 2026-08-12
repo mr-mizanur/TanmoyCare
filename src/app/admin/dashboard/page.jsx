@@ -179,47 +179,48 @@ export default function AdminDashboard() {
   const countClass12 = students.filter(s => String(s.studentClass).trim() === "12").length;
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-4 sm:p-8">
-      <div className="max-w-5xl mx-auto space-y-8">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100 p-4 sm:p-8">
+      <div className="max-w-6xl mx-auto space-y-6">
         
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-extrabold flex items-center gap-2">
-              <UserCheck className="w-6 h-6 text-indigo-400" />
+        {/* Top Header & Navigation Bar */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h1 className="text-xl font-bold flex items-center gap-2 text-zinc-100">
+              <UserCheck className="w-5 h-5 text-zinc-400" />
               <span>Admin Dashboard</span>
             </h1>
-            <p className="text-xs text-slate-400 mt-1">Manage results, notices, students, and admins.</p>
+            <p className="text-xs text-zinc-400">Manage results, notices, students, and admins efficiently.</p>
           </div>
 
-          <div className="flex flex-wrap bg-slate-950 p-1 rounded-xl border border-slate-800 gap-1">
+          <div className="flex flex-wrap bg-zinc-950 p-1.5 rounded-2xl border border-zinc-800 gap-1.5">
             <button
               onClick={() => { setActiveTab("result"); setMessage({ type: "", text: "" }); }}
-              className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                activeTab === "result" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
+                activeTab === "result" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
               <Award className="w-4 h-4" /> Add Result
             </button>
             <button
               onClick={() => { setActiveTab("notice"); setMessage({ type: "", text: "" }); }}
-              className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                activeTab === "notice" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
+                activeTab === "notice" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
               <Bell className="w-4 h-4" /> Notices
             </button>
             <button
               onClick={() => { setActiveTab("students"); setMessage({ type: "", text: "" }); }}
-              className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                activeTab === "students" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
+                activeTab === "students" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
               <Users className="w-4 h-4" /> Students ({students.length})
             </button>
             <button
               onClick={() => { setActiveTab("admins"); setMessage({ type: "", text: "" }); }}
-              className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                activeTab === "admins" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
+                activeTab === "admins" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
               <Shield className="w-4 h-4" /> Admins ({admins.length})
@@ -228,71 +229,71 @@ export default function AdminDashboard() {
         </div>
 
         {message.text && (
-          <div className={`p-4 rounded-xl border text-xs flex items-center gap-2 ${
+          <div className={`p-4 rounded-2xl border text-xs flex items-center gap-2 ${
             message.type === "success" 
-              ? "bg-emerald-950/40 border-emerald-500/30 text-emerald-300" 
-              : "bg-rose-950/40 border-rose-500/30 text-rose-300"
+              ? "bg-zinc-900 border-zinc-700 text-zinc-200" 
+              : "bg-zinc-900 border-zinc-700 text-zinc-300"
           }`}>
-            <CheckCircle className="w-4 h-4 flex-shrink-0" />
+            <CheckCircle className="w-4 h-4 flex-shrink-0 text-zinc-400" />
             <span>{message.text}</span>
           </div>
         )}
 
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
           
           {activeTab === "result" && (
             <form onSubmit={handleResultSubmit} className="space-y-5">
-              <h2 className="text-lg font-bold flex items-center gap-2 text-indigo-400 border-b border-slate-800 pb-3">
-                <FileText className="w-5 h-5" /> Publish Result by Student Roll
+              <h2 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-zinc-100 border-b border-zinc-800 pb-3">
+                <FileText className="w-4 h-4 text-zinc-400" /> Publish Result by Student Roll
               </h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1.5">Student Roll Number</label>
+                  <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Student Roll Number</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. 101"
                     value={resultForm.studentRoll}
                     onChange={(e) => setResultForm({ ...resultForm, studentRoll: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-zinc-700"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1.5">Exam Name</label>
+                  <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Exam Name</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Physics Weekly Exam - 01"
                     value={resultForm.examName}
                     onChange={(e) => setResultForm({ ...resultForm, examName: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-zinc-700"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1.5">CQ Marks</label>
+                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">CQ Marks</label>
                     <input
                       type="number"
                       required
                       placeholder="0"
                       value={resultForm.cqMarks}
                       onChange={(e) => setResultForm({ ...resultForm, cqMarks: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-zinc-700"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1.5">MCQ Marks</label>
+                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">MCQ Marks</label>
                     <input
                       type="number"
                       required
                       placeholder="0"
                       value={resultForm.mcqMarks}
                       onChange={(e) => setResultForm({ ...resultForm, mcqMarks: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-zinc-700"
                     />
                   </div>
                 </div>
@@ -301,7 +302,7 @@ export default function AdminDashboard() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-semibold text-xs transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlusCircle className="w-4 h-4" />}
                 <span>Publish Result</span>
@@ -311,33 +312,33 @@ export default function AdminDashboard() {
 
           {activeTab === "notice" && (
             <div className="space-y-8">
-              <form onSubmit={handleNoticeSubmit} className="space-y-5 border-b border-slate-800 pb-8">
-                <h2 className="text-lg font-bold flex items-center gap-2 text-indigo-400">
-                  <Bell className="w-5 h-5" /> Publish New Notice
+              <form onSubmit={handleNoticeSubmit} className="space-y-5 border-b border-zinc-800 pb-8">
+                <h2 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-zinc-100">
+                  <Bell className="w-4 h-4 text-zinc-400" /> Publish New Notice
                 </h2>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1.5">Notice Title</label>
+                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Notice Title</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Tomorrow Class Schedule Update"
                       value={noticeForm.title}
                       onChange={(e) => setNoticeForm({ ...noticeForm, title: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-zinc-700"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1.5">Notice Description</label>
+                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Notice Description</label>
                     <textarea
                       required
                       rows={3}
                       placeholder="Write notice details here..."
                       value={noticeForm.description}
                       onChange={(e) => setNoticeForm({ ...noticeForm, description: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-zinc-700"
                     />
                   </div>
                 </div>
@@ -345,7 +346,7 @@ export default function AdminDashboard() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-semibold text-xs transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlusCircle className="w-4 h-4" />}
                   <span>Publish Notice</span>
@@ -353,20 +354,20 @@ export default function AdminDashboard() {
               </form>
 
               <div className="space-y-4">
-                <h3 className="text-sm font-bold text-slate-300">Existing Notices ({notices.length})</h3>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-300">Existing Notices ({notices.length})</h3>
                 {notices.length === 0 ? (
-                  <p className="text-xs text-slate-500 text-center py-4">No notices published yet.</p>
+                  <p className="text-xs text-zinc-500 text-center py-4 italic">No notices published yet.</p>
                 ) : (
                   <div className="space-y-3">
                     {notices.map((notice) => (
-                      <div key={notice._id} className="bg-slate-950/60 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-4">
+                      <div key={notice._id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 flex items-center justify-between gap-4">
                         <div className="space-y-1 min-w-0">
-                          <h4 className="text-sm font-bold text-white truncate">{notice.title}</h4>
-                          <p className="text-xs text-slate-400 line-clamp-1">{notice.description}</p>
+                          <h4 className="text-xs font-bold text-zinc-100 truncate">{notice.title}</h4>
+                          <p className="text-xs text-zinc-400 line-clamp-1">{notice.description}</p>
                         </div>
                         <button
                           onClick={() => handleDeleteNotice(notice._id)}
-                          className="p-2 rounded-xl bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white transition-all flex-shrink-0"
+                          className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-100 hover:border-zinc-700 transition-all flex-shrink-0"
                           title="Delete Notice"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -381,33 +382,33 @@ export default function AdminDashboard() {
 
           {activeTab === "students" && (
             <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-slate-800 pb-4">
-                <h2 className="text-lg font-bold flex items-center gap-2 text-indigo-400">
-                  <Users className="w-5 h-5" /> Enrolled Students Directory ({students.length})
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+                <h2 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-zinc-100">
+                  <Users className="w-4 h-4 text-zinc-400" /> Enrolled Students Directory ({students.length})
                 </h2>
 
                 <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
-                  <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 w-full sm:w-auto">
+                  <div className="flex items-center gap-1 bg-zinc-950 p-1 rounded-xl border border-zinc-800 w-full sm:w-auto">
                     <button
                       onClick={() => setSelectedStudentClass("all")}
-                      className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
-                        selectedStudentClass === "all" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        selectedStudentClass === "all" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
                       }`}
                     >
                       All ({countAllStudents})
                     </button>
                     <button
                       onClick={() => setSelectedStudentClass("11")}
-                      className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
-                        selectedStudentClass === "11" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        selectedStudentClass === "11" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
                       }`}
                     >
                       Class 11 ({countClass11})
                     </button>
                     <button
                       onClick={() => setSelectedStudentClass("12")}
-                      className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
-                        selectedStudentClass === "12" ? "bg-indigo-600 text-white shadow" : "text-slate-400 hover:text-white"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        selectedStudentClass === "12" ? "bg-zinc-100 text-zinc-900 shadow" : "text-zinc-400 hover:text-zinc-200"
                       }`}
                     >
                       Class 12 ({countClass12})
@@ -415,7 +416,7 @@ export default function AdminDashboard() {
                   </div>
 
                   <div className="relative w-full sm:w-48">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-500">
                       <Search className="w-3.5 h-3.5" />
                     </span>
                     <input
@@ -423,28 +424,28 @@ export default function AdminDashboard() {
                       placeholder="Search student..."
                       value={studentSearchQuery}
                       onChange={(e) => setStudentSearchQuery(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
                     />
                   </div>
                 </div>
               </div>
 
               {filteredStudents.length === 0 ? (
-                <p className="text-xs text-slate-500 text-center py-8">No students found.</p>
+                <p className="text-xs text-zinc-500 text-center py-8 italic">No students found.</p>
               ) : (
                 <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
                   {filteredStudents.map((student) => {
                     const studentClassVal = student.studentClass ? student.studentClass : "11";
 
                     return (
-                      <div key={student._id} className="bg-slate-950/60 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                      <div key={student._id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         
                         <div className="flex items-start gap-3.5 min-w-0">
-                          <div className="w-12 h-12 rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900 flex-shrink-0">
+                          <div className="w-12 h-12 rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 flex-shrink-0">
                             {student.image ? (
                               <img src={student.image} alt={student.name} className="w-full h-full object-cover" />
                             ) : (
-                              <div className="w-full h-full flex items-center justify-center text-sm font-bold text-indigo-400">
+                              <div className="w-full h-full flex items-center justify-center text-xs font-bold text-zinc-400">
                                 {student.name?.charAt(0) || "S"}
                               </div>
                             )}
@@ -452,39 +453,39 @@ export default function AdminDashboard() {
 
                           <div className="space-y-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <h4 className="text-sm font-bold text-white truncate">{student.name || "Unnamed"}</h4>
-                              <span className="text-[10px] bg-indigo-950 border border-indigo-500/30 text-indigo-300 px-2 py-0.5 rounded-md font-semibold">
+                              <h4 className="text-xs font-bold text-zinc-100 truncate">{student.name || "Unnamed"}</h4>
+                              <span className="text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-300 px-2 py-0.5 rounded-lg font-medium">
                                 Class {studentClassVal}
                               </span>
-                              <span className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md font-semibold">
+                              <span className="text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-300 px-2 py-0.5 rounded-lg font-medium">
                                 Roll: {student.studentRoll || "N/A"}
                               </span>
                             </div>
                             
-                            <p className="text-xs text-slate-400">{student.email}</p>
+                            <p className="text-xs text-zinc-400">{student.email}</p>
 
-                            <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-slate-300">
+                            <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-zinc-300">
                               {student.collegeName && (
-                                <span className="flex items-center gap-1 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-300">
-                                  <Building2 className="w-3 h-3 text-indigo-400" />
+                                <span className="flex items-center gap-1 bg-zinc-900 px-2 py-0.5 rounded-lg border border-zinc-800 text-zinc-300">
+                                  <Building2 className="w-3 h-3 text-zinc-400" />
                                   {student.collegeName}
                                 </span>
                               )}
                               {student.batch && (
-                                <span className="flex items-center gap-1 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-300">
-                                  <Users className="w-3 h-3 text-indigo-400" />
+                                <span className="flex items-center gap-1 bg-zinc-900 px-2 py-0.5 rounded-lg border border-zinc-800 text-zinc-300">
+                                  <Users className="w-3 h-3 text-zinc-400" />
                                   Batch: {student.batch}
                                 </span>
                               )}
                               {student.groupName && (
-                                <span className="flex items-center gap-1 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-300">
-                                  <BookOpen className="w-3 h-3 text-indigo-400" />
+                                <span className="flex items-center gap-1 bg-zinc-900 px-2 py-0.5 rounded-lg border border-zinc-800 text-zinc-300">
+                                  <BookOpen className="w-3 h-3 text-zinc-400" />
                                   {student.groupName}
                                 </span>
                               )}
                               {student.academicYear && (
-                                <span className="flex items-center gap-1 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-300">
-                                  <Calendar className="w-3 h-3 text-indigo-400" />
+                                <span className="flex items-center gap-1 bg-zinc-900 px-2 py-0.5 rounded-lg border border-zinc-800 text-zinc-300">
+                                  <Calendar className="w-3 h-3 text-zinc-400" />
                                   {student.academicYear}
                                 </span>
                               )}
@@ -492,13 +493,13 @@ export default function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-800">
+                        <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
                           <button
                             onClick={() => handleToggleBlock(student._id, student.isBlocked)}
                             className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all ${
                               student.isBlocked 
-                                ? "bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white" 
-                                : "bg-amber-600/20 text-amber-400 border border-amber-500/30 hover:bg-amber-600 hover:text-white"
+                                ? "bg-zinc-900 border border-zinc-700 text-zinc-200 hover:bg-zinc-800" 
+                                : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200"
                             }`}
                           >
                             {student.isBlocked ? <ShieldCheck className="w-3.5 h-3.5" /> : <ShieldAlert className="w-3.5 h-3.5" />}
@@ -507,7 +508,7 @@ export default function AdminDashboard() {
 
                           <button
                             onClick={() => handleDeleteStudent(student._id)}
-                            className="p-2 rounded-xl bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white transition-all"
+                            className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-100 hover:border-zinc-700 transition-all"
                             title="Delete Student"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -524,23 +525,23 @@ export default function AdminDashboard() {
 
           {activeTab === "admins" && (
             <div className="space-y-4">
-              <h2 className="text-lg font-bold flex items-center gap-2 text-indigo-400 border-b border-slate-800 pb-3">
-                <Shield className="w-5 h-5" /> Admin Directory ({admins.length})
+              <h2 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-zinc-100 border-b border-zinc-800 pb-3">
+                <Shield className="w-4 h-4 text-zinc-400" /> Admin Directory ({admins.length})
               </h2>
 
               {admins.length === 0 ? (
-                <p className="text-xs text-slate-500 text-center py-8">No admins found.</p>
+                <p className="text-xs text-zinc-500 text-center py-8 italic">No admins found.</p>
               ) : (
                 <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
                   {admins.map((admin) => (
-                    <div key={admin._id} className="bg-slate-950/60 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div key={admin._id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       
                       <div className="flex items-start gap-3.5 min-w-0">
-                        <div className="w-12 h-12 rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900 flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 flex-shrink-0">
                           {admin.image ? (
                             <img src={admin.image} alt={admin.name} className="w-full h-full object-cover" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-sm font-bold text-indigo-400">
+                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-zinc-400">
                               {admin.name?.charAt(0) || "A"}
                             </div>
                           )}
@@ -548,23 +549,23 @@ export default function AdminDashboard() {
 
                         <div className="space-y-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h4 className="text-sm font-bold text-white truncate">{admin.name || "Unnamed Admin"}</h4>
-                            <span className="text-[10px] bg-emerald-600/20 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-md font-semibold">
+                            <h4 className="text-xs font-bold text-zinc-100 truncate">{admin.name || "Unnamed Admin"}</h4>
+                            <span className="text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-300 px-2 py-0.5 rounded-lg font-medium">
                               Role: Admin
                             </span>
                           </div>
                           
-                          <p className="text-xs text-slate-400">{admin.email}</p>
+                          <p className="text-xs text-zinc-400">{admin.email}</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-800">
+                      <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
                         <button
                           onClick={() => handleToggleBlock(admin._id, admin.isBlocked)}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all ${
                             admin.isBlocked 
-                              ? "bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white" 
-                              : "bg-amber-600/20 text-amber-400 border border-amber-500/30 hover:bg-amber-600 hover:text-white"
+                              ? "bg-zinc-900 border border-zinc-700 text-zinc-200 hover:bg-zinc-800" 
+                              : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200"
                           }`}
                         >
                           {admin.isBlocked ? <ShieldCheck className="w-3.5 h-3.5" /> : <ShieldAlert className="w-3.5 h-3.5" />}
@@ -573,7 +574,7 @@ export default function AdminDashboard() {
 
                         <button
                           onClick={() => handleDeleteStudent(admin._id)}
-                          className="p-2 rounded-xl bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white transition-all"
+                          className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-100 hover:border-zinc-700 transition-all"
                           title="Delete Admin"
                         >
                           <Trash2 className="w-4 h-4" />
