@@ -177,20 +177,20 @@ export default function SignUpPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-zinc-300">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-3 w-4 h-4 text-zinc-500" />
-                <input 
-                  type="password" 
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
-                />
-              </div>
-            </div>
+         <div className="space-y-1.5">
+  <label className="text-xs font-semibold text-zinc-300">Password</label>
+  <div className="relative">
+    <Lock className="absolute left-3.5 top-3 w-4 h-4 text-zinc-500" />
+    <input 
+      type="text"
+      required
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      placeholder="••••••••"
+      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
+    />
+  </div>
+</div>
 
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-zinc-300">Class</label>

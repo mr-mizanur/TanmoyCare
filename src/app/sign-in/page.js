@@ -84,7 +84,7 @@ export default function SignInPage() {
             <div className="relative">
               <Lock className="absolute left-3.5 top-3 w-4 h-4 text-zinc-500" />
               <input 
-                type="password" 
+                type="text" 
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
