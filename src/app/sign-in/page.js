@@ -48,48 +48,48 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4 py-12 text-zinc-100">
-      <div className="max-w-md w-full bg-zinc-900 border border-zinc-800 rounded-3xl shadow-2xl p-8 space-y-6">
+    <div className="min-h-screen flex items-center justify-center bg-[#07090e] px-4 py-12 text-slate-100">
+      <div className="max-w-md w-full bg-slate-900/80 border border-slate-800 rounded-3xl shadow-2xl p-8 space-y-6 backdrop-blur-sm">
         
         <div className="text-center space-y-1.5">
-          <h2 className="text-xl font-bold text-zinc-100">Welcome Back</h2>
-          <p className="text-xs text-zinc-400">Sign in to T@nmoy's Private Care</p>
+          <h2 className="text-xl font-bold text-slate-100">Welcome Back</h2>
+          <p className="text-xs text-slate-400">Sign in to T@nmoy's Private Care</p>
         </div>
 
         {error && (
-          <div className="bg-zinc-950 border border-zinc-800 text-zinc-300 p-4 rounded-2xl text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 flex-shrink-0 text-zinc-400" />
+          <div className="bg-slate-950 border border-slate-800 text-slate-200 p-4 rounded-2xl text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 text-violet-400" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSignIn} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-zinc-300">Email Address</label>
+            <label className="text-xs font-semibold text-slate-300">Email Address</label>
             <div className="relative">
-              <Mail className="absolute left-3.5 top-3 w-4 h-4 text-zinc-500" />
+              <Mail className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
               <input 
                 type="email" 
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="student@example.com"
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-zinc-300">Password</label>
+            <label className="text-xs font-semibold text-slate-300">Password</label>
             <div className="relative">
-              <Lock className="absolute left-3.5 top-3 w-4 h-4 text-zinc-500" />
+              <Lock className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
               <input 
-                type="text" 
+                type="password" 
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
               />
             </div>
           </div>
@@ -97,16 +97,16 @@ export default function SignInPage() {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full mt-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-semibold py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 text-xs disabled:opacity-50"
+            className="w-full mt-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2 text-xs disabled:opacity-50"
           >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
+            {loading ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <LogIn className="w-4 h-4" />}
             <span>{loading ? "Signing In..." : "Login"}</span>
           </button>
         </form>
 
-        <p className="text-center text-xs text-zinc-400">
+        <p className="text-center text-xs text-slate-400">
           Don't have an account?{" "}
-          <Link href="/sign-up" className="text-zinc-200 hover:underline font-semibold">
+          <Link href="/sign-up" className="text-violet-400 hover:text-violet-300 font-semibold transition-colors">
             Register
           </Link>
         </p>
