@@ -31,7 +31,7 @@ export default function StudentList() {
           for (const student of onlyStudents) {
             const roll = student.studentRoll ? String(student.studentRoll).trim() : "";
             if (roll) {
-              const res = await fetch(`http://localhost:5000/api/results/roll/${roll}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/results/roll/${roll}`);
               const resData = await res.json();
               if (resData.success) {
                 resultsMap[roll] = resData.data;
