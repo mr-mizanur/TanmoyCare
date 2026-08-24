@@ -17,21 +17,20 @@ export default function Home() {
 
 
   return (
-    <main className="bg-slate-950 min-h-screen flex flex-col justify-between text-white">
-      <div className="space-y-8 pb-10">
-       
-        <Hero />
+   <main className="bg-slate-50 min-h-screen flex flex-col justify-between text-slate-900">
+  <div className="space-y-8 pb-10">
+    
+    <Hero />
 
-
-        <div className="max-w-6xl mx-auto px-4 space-y-4">
-          <div className="border-t border-slate-800/80 pt-6 text-center">
-            <h2 className="text-lg font-bold tracking-tight text-white">
-              All Enrolled Students
-            </h2>
-          </div>
-          <StudentList />
-        </div>
+    <div className="max-w-6xl mx-auto px-4 space-y-4">
+      <div className="border-t border-slate-200/80 pt-6 text-center">
+        <h2 className="text-lg font-bold tracking-tight text-slate-900">
+          All Enrolled Students
+        </h2>
       </div>
-    </main>
+      <StudentList />
+    </div>
+  </div>
+</main>
   );
 }

@@ -95,16 +95,16 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#07090e] px-4 py-12 text-slate-100">
-      <div className="max-w-xl w-full bg-slate-900/80 border border-slate-800 rounded-3xl shadow-2xl p-8 space-y-6 backdrop-blur-sm">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12 text-slate-400">
+      <div className="max-w-xl w-full border-slate-200/80 bg-white/90 backdrop-blur-md shadow-sm  rounded-3xl shadow-2xl p-8 space-y-6 backdrop-blur-sm">
         
         <div className="text-center space-y-1.5">
-          <h2 className="text-xl font-bold text-slate-100">Student Registration</h2>
+          <h2 className="text-xl font-bold text-indigo-600">Student Registration</h2>
           <p className="text-xs text-slate-400">T@nmoy's Private Care - Join Your Batch</p>
         </div>
 
         {error && (
-          <div className="bg-slate-950 border border-slate-800 text-slate-200 p-4 rounded-2xl text-xs flex items-center gap-2">
+          <div className="bg-slate-50 border border-slate-800 text-slate-200 p-4 rounded-2xl text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 flex-shrink-0 text-violet-400" />
             <span>{error}</span>
           </div>
@@ -113,7 +113,7 @@ export default function SignUpPage() {
         <form onSubmit={handleSignUp} className="space-y-4">
         
           <div className="flex flex-col items-center justify-center space-y-3 pb-2">
-            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-slate-800 bg-slate-950 flex items-center justify-center shadow-inner">
+            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-slate-800 bg-slate-50 flex items-center justify-center shadow-inner">
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
               ) : (
@@ -126,7 +126,7 @@ export default function SignUpPage() {
               )}
             </div>
             
-            <label className="cursor-pointer bg-slate-950 hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold transition-all border border-slate-800 shadow-sm">
+            <label className="cursor-pointer bg-slate-50 hover:bg-slate-800 text-violet-400 px-4 py-2 rounded-xl text-xs font-semibold transition-all border border-slate-800 shadow-sm">
               <span>{uploadingImage ? "Uploading..." : "Upload Profile Picture"}</span>
               <input 
                 type="file" 
@@ -146,7 +146,7 @@ export default function SignUpPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Full Name</label>
+              <label className="text-xs font-semibold text-violet-400">Full Name</label>
               <div className="relative">
                 <User className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input 
@@ -155,13 +155,13 @@ export default function SignUpPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Mizanur Rahman"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Email Address</label>
+              <label className="text-xs font-semibold text-violet-400">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input 
@@ -169,8 +169,8 @@ export default function SignUpPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="student@example.com"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  placeholder="mizanur.codes@gmail.com"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 />
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function SignUpPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Password</label>
+              <label className="text-xs font-semibold text-violet-400">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input 
@@ -187,19 +187,19 @@ export default function SignUpPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Class</label>
+              <label className="text-xs font-semibold text-violet-400">Class</label>
               <div className="relative">
                 <BookOpen className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <select 
                   value={studentClass}
                   onChange={(e) => setStudentClass(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 >
                   <option value="11">Class 11 (First Year)</option>
                   <option value="12">Class 12 (Second Year)</option>
@@ -210,7 +210,7 @@ export default function SignUpPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Batch Name</label>
+              <label className="text-xs font-semibold text-violet-400">Batch Name</label>
               <div className="relative">
                 <GraduationCap className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input 
@@ -219,13 +219,13 @@ export default function SignUpPage() {
                   value={batch}
                   onChange={(e) => setBatch(e.target.value)}
                   placeholder="HSC 2026 Science"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Student Roll</label>
+              <label className="text-xs font-semibold text-violet-400">Student Roll</label>
               <div className="relative">
                 <Hash className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input 
@@ -234,7 +234,7 @@ export default function SignUpPage() {
                   value={studentRoll}
                   onChange={(e) => setStudentRoll(e.target.value)}
                   placeholder="Roll No (e.g. 101)"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 />
               </div>
             </div>
@@ -242,19 +242,19 @@ export default function SignUpPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">Academic Year</label>
+              <label className="text-xs font-semibold text-violet-400">Academic Year</label>
               <input 
                 type="text" 
                 required
                 value={academicYear}
                 onChange={(e) => setAcademicYear(e.target.value)}
                 placeholder="2025-2026"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                className="w-full bg-slate-50 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">College Name</label>
+              <label className="text-xs font-semibold text-violet-400">College Name</label>
               <div className="relative">
                 <Building2 className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input 
@@ -263,20 +263,20 @@ export default function SignUpPage() {
                   value={collegeName}
                   onChange={(e) => setCollegeName(e.target.value)}
                   placeholder="Govt. College Name"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                  className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-500 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
                 />
               </div>
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300">Group Name</label>
+            <label className="text-xs font-semibold text-violet-400">Group Name</label>
             <div className="relative">
               <Layers className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
               <select 
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
+                className="w-full bg-slate-50 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-violet-500/50 transition-all shadow-inner"
               >
                 <option value="Science">Science</option>
                 <option value="Arts">Arts</option>

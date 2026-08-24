@@ -144,7 +144,7 @@ export default function StudentDashboard() {
 
   if (!mounted || isPending) {
     return (
-      <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-slate-400 gap-2">
+      <div className="min-h-screen bg-slate-5 flex items-center justify-center text-slate-400 gap-2">
         <Loader2 className="w-6 h-6 animate-spin text-violet-400" />
         <span className="text-xs">Loading Student Dashboard...</span>
       </div>
@@ -152,11 +152,11 @@ export default function StudentDashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-[#07090e] text-slate-100 p-4 sm:p-8">
+    <main className="min-h-screen bg-slate-50 text-slate-900 p-4 sm:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         
-        {/* Top Profile Summary Card */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
+       
+        <div className="border-slate-200/80 bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
           <div className="flex items-center gap-5">
             <img 
               src={formData.image || "/avatar.png"} 
@@ -164,7 +164,7 @@ export default function StudentDashboard() {
               className="w-20 h-20 rounded-2xl object-cover border-2 border-slate-700 shadow-lg bg-slate-950" 
             />
             <div className="space-y-1">
-              <h1 className="text-xl font-bold text-slate-100">{formData.name || "Student Name"}</h1>
+              <h1 className="text-xl font-bold text-indigo-600">{formData.name || "Student Name"}</h1>
               <p className="text-xs text-slate-400">
                 Roll: <span className="text-violet-400 font-semibold">{formData.studentRoll || "Not Set"}</span> | Class: <span className="text-violet-400 font-semibold">{formData.studentClass || "N/A"}</span>
               </p>
@@ -204,35 +204,35 @@ export default function StudentDashboard() {
        
         {activeTab === "overview" && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-4 backdrop-blur-sm shadow-xl">
+            <div className="border-slate-200/80 bg-white/90 backdrop-blur-md  rounded-3xl p-6 space-y-4 backdrop-blur-sm shadow-xl">
               <div className="flex items-center gap-2 text-slate-200">
                 <User className="w-5 h-5 text-violet-400" />
-                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-100">Academic Details</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wider text-violet-400">Academic Details</h2>
               </div>
-              <div className="space-y-2.5 text-xs text-slate-300">
+              <div className="space-y-2.5 text-xs text-violet-400">
                 <p className="flex justify-between border-b border-slate-800 pb-2.5">
                   <span className="text-slate-400">Batch:</span> 
-                  <span className="font-semibold text-slate-100">{formData.batch || "N/A"}</span>
+                  <span className="font-semibold text-violet-400">{formData.batch || "N/A"}</span>
                 </p>
                 <p className="flex justify-between border-b border-slate-800 pb-2.5">
                   <span className="text-slate-400">Academic Year:</span> 
-                  <span className="font-semibold text-slate-100">{formData.academicYear || "N/A"}</span>
+                  <span className="font-semibold text-violet-400">{formData.academicYear || "N/A"}</span>
                 </p>
                 <p className="flex justify-between border-b border-slate-800 pb-2.5">
                   <span className="text-slate-400">College:</span> 
-                  <span className="font-semibold text-slate-100">{formData.collegeName || "N/A"}</span>
+                  <span className="font-semibold text-violet-400">{formData.collegeName || "N/A"}</span>
                 </p>
                 <p className="flex justify-between">
                   <span className="text-slate-400">Group:</span> 
-                  <span className="font-semibold text-slate-100">{formData.groupName || "N/A"}</span>
+                  <span className="font-semibold text-violet-400">{formData.groupName || "N/A"}</span>
                 </p>
               </div>
             </div>
 
-            <div className="md:col-span-2 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-4 backdrop-blur-sm shadow-xl">
+            <div className="md:col-span-2 border-slate-200/80 bg-white/90 backdrop-blur-md rounded-3xl p-6 space-y-4 backdrop-blur-sm shadow-xl">
               <div className="flex items-center gap-2 text-slate-200">
                 <Bell className="w-5 h-5 text-violet-400" />
-                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-100">Recent Notices</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wider text-violet-400">Recent Notices</h2>
               </div>
               <div className="space-y-3 max-h-60 overflow-y-auto pr-2">
                 {notices.length > 0 ? (
@@ -253,12 +253,12 @@ export default function StudentDashboard() {
           </div>
         )}
 
-        {/* ================= TAB 2: MY RESULTS ================= */}
+      
         {activeTab === "results" && (
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 backdrop-blur-sm shadow-xl">
+          <div className="border-slate-200/80 bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 space-y-6 backdrop-blur-sm shadow-xl">
             <div className="flex items-center gap-2 border-b border-slate-800 pb-4">
               <Award className="w-5 h-5 text-violet-400" />
-              <h2 className="text-lg font-bold text-slate-100">Exam Results History</h2>
+              <h2 className="text-lg font-bold text-violet-400">Exam Results History</h2>
             </div>
             
             <div className="space-y-3">
@@ -266,12 +266,12 @@ export default function StudentDashboard() {
                 studentResults.map((resItem, index) => (
                   <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-2xl bg-slate-950 border border-slate-800 gap-4 shadow-inner">
                     <div>
-                      <h3 className="text-sm font-bold text-slate-100">{resItem.examName || "Class Assessment"}</h3>
+                      <h3 className="text-sm font-bold text-violet-400">{resItem.examName || "Class Assessment"}</h3>
                       <p className="text-xs text-slate-500">Roll: {resItem.studentRoll}</p>
                     </div>
                     <div className="flex items-center gap-3 text-xs">
                       <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-medium">
-                        CQ: <strong className="text-slate-100">{resItem.cqMarks || 0}</strong> | MCQ: <strong className="text-slate-100">{resItem.mcqMarks || 0}</strong>
+                        CQ: <strong className="text-violet-400">{resItem.cqMarks || 0}</strong> | MCQ: <strong className="text-slate-100">{resItem.mcqMarks || 0}</strong>
                       </div>
                       <div className="px-3 py-1.5 rounded-xl bg-violet-600/10 border border-violet-500/20 text-violet-400 font-bold">
                         Total: {resItem.totalMarks || 0}
@@ -290,10 +290,10 @@ export default function StudentDashboard() {
 
         
         {activeTab === "edit-profile" && (
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 backdrop-blur-sm shadow-xl">
+          <div className="border-slate-200/80 bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 space-y-6 backdrop-blur-sm shadow-xl">
             <div className="flex items-center gap-2 border-b border-slate-800 pb-4">
               <Edit3 className="w-5 h-5 text-violet-400" />
-              <h2 className="text-lg font-bold text-slate-100">Edit Student Profile & Information</h2>
+              <h2 className="text-lg font-bold text-violet-400">Edit Student Profile & Information</h2>
             </div>
 
             {successMessage && (
@@ -313,7 +313,7 @@ export default function StudentDashboard() {
             <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Full Name</label>
+                <label className="text-xs font-semibold text-violet-400">Full Name</label>
                 <input 
                   type="text" 
                   name="name" 
@@ -324,7 +324,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Student Roll</label>
+                <label className="text-xs font-semibold text-violet-4000">Student Roll</label>
                 <input 
                   type="text" 
                   name="studentRoll" 
@@ -335,7 +335,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Class</label>
+                <label className="text-xs font-semibold text-violet-400">Class</label>
                 <input 
                   type="text" 
                   name="studentClass" 
@@ -346,7 +346,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Batch</label>
+                <label className="text-xs font-semibold text-violet-400">Batch</label>
                 <input 
                   type="text" 
                   name="batch" 
@@ -357,7 +357,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Academic Year</label>
+                <label className="text-xs font-semibold text-violet-400">Academic Year</label>
                 <input 
                   type="text" 
                   name="academicYear" 
@@ -368,7 +368,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">College Name</label>
+                <label className="text-xs font-semibold text-violet-400">College Name</label>
                 <input 
                   type="text" 
                   name="collegeName" 
@@ -379,7 +379,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Group Name (Science/Arts/Commerce)</label>
+                <label className="text-xs font-semibold text-violet-400">Group Name (Science/Arts/Commerce)</label>
                 <input 
                   type="text" 
                   name="groupName" 
@@ -390,7 +390,7 @@ export default function StudentDashboard() {
               </div>
 
               <div className="space-y-1.5 sm:col-span-2">
-                <label className="text-xs font-semibold text-slate-300">Profile Image</label>
+                <label className="text-xs font-semibold text-violet-400">Profile Image</label>
                 <div className="flex items-center gap-4">
                   {formData.image && (
                     <img 
