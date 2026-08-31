@@ -50,8 +50,24 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12 text-slate-400">
       <div className="max-w-md w-full  border-slate-200/80 bg-white/90 backdrop-blur-md shadow-sm rounded-3xl shadow-2xl p-8 space-y-6 backdrop-blur-sm">
+           
+ <div className="flex-shrink-0">
+               <Link href="/" className="flex items-center gap-2.5">
+                 <div>
+                   <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
+                 </div>
+                 <div>
+                   <span className="text-xl font-bold text-slate-900 tracking-tight">T@NMOY'S</span>
+                   <span className="block text-[10px] text-indigo-600 font-semibold tracking-[0.2em]">PRIVATE CARE</span>
+                 </div>
+               </Link>
+             </div>
+
+
+
+
+         <div >
         
-        <div className="text-center space-y-1.5">
           <h2 className="text-xl font-bold text-indigo-600">Dear Student Login Now</h2>
           <p className="text-xs text-slate-400">Sign in to T@nmoy's Private Care</p>
         </div>

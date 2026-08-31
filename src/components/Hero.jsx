@@ -51,7 +51,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Action Buttons */}
+            
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
               <Link 
                 href="/sign-up" 

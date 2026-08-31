@@ -13,7 +13,7 @@ export default function Footer() {
             <div className="flex-shrink-0">
               <Link href="/" className="flex items-center gap-2.5">
                 <div>
-                  <img src="/logo.PNG" alt="Logo" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
+                  <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm" />
                 </div>
                 <div>
                   <span className="text-xl font-bold text-slate-900 tracking-tight">T@NMOY'S</span>
