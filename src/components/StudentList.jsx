@@ -256,8 +256,6 @@
 //    </div>
 //  );
 //}//
-
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -320,6 +318,39 @@ export default function StudentList() {
     fetchData();
   }, []);
 
+  // Calculate ranks ONLY for students who passed ALL exams
+  // Rank based on total marks (higher total = better rank)
+  const rankMap = {};
+  const passedAllStudents = students
+    .map((student) => {
+      const roll = student.studentRoll ? String(student.studentRoll).trim() : "";
+      const results = allResults[roll] || [];
+      const passedAll = results.length > 0 && results.every((res) => {
+        const cq = Number(res.cqMarks || 0);
+        const mcq = Number(res.mcqMarks || 0);
+        return cq >= 15 && mcq >= 25;
+      });
+
+      if (!passedAll) return null;
+
+      // Total marks of all exams
+      const totalScore = results.reduce((sum, res) => {
+        const cq = Number(res.cqMarks || 0);
+        const mcq = Number(res.mcqMarks || 0);
+        const total = res.totalMarks !== undefined ? Number(res.totalMarks) : cq + mcq;
+        return sum + total;
+      }, 0);
+
+      return { roll, totalScore };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.totalScore - a.totalScore); // highest total first
+
+  // Assign 1st, 2nd, 3rd...
+  passedAllStudents.forEach((item, index) => {
+    rankMap[item.roll] = index + 1;
+  });
+
   const filteredStudents = students.filter((student) => {
     if (selectedClass !== "all") {
       const studentClass = student.studentClass ? String(student.studentClass).trim() : "11";
@@ -357,11 +388,11 @@ export default function StudentList() {
     if (passedAllA && !passedAllB) return -1;
     if (!passedAllA && passedAllB) return 1;
 
-    // Then sort by position (only meaningful for those who passed all)
-    const posA = resultsA[0]?.position ? Number(resultsA[0].position) : 9999;
-    const posB = resultsB[0]?.position ? Number(resultsB[0].position) : 9999;
+    // Then sort by calculated rank (1st, 2nd, 3rd...)
+    const rankA = rankMap[rollA] || 9999;
+    const rankB = rankMap[rollB] || 9999;
 
-    return posA - posB;
+    return rankA - rankB;
   });
 
   if (loading) {
@@ -434,6 +465,9 @@ export default function StudentList() {
               return cq >= 15 && mcq >= 25;
             });
 
+            // Get calculated rank (1st, 2nd, 3rd...)
+            const studentRank = rankMap[roll];
+
             return (
               <div
                 key={student._id || index}
@@ -484,7 +518,6 @@ export default function StudentList() {
                           const cq = Number(res.cqMarks || 0);
                           const mcq = Number(res.mcqMarks || 0);
                           const total = res.totalMarks !== undefined ? res.totalMarks : cq + mcq;
-                          const position = res.position; 
                           
                           const isPassed = cq >= 15 && mcq >= 25;
 
@@ -507,10 +540,11 @@ export default function StudentList() {
                                   </span>
 
                                 
-                                  {/* Position only shown if student passed ALL exams */}
-                                  {position && passedAllExams && (
+                                  {/* Show calculated rank (1st, 2nd, 3rd...) only if passed ALL exams */}
+                                  {passedAllExams && studentRank && (
                                     <span className="bg-amber-50 border border-amber-200 text-amber-600 font-semibold px-2 py-0.5 rounded-lg text-[9px] flex items-center gap-0.5">
-                                      <Trophy className="w-2.5 h-2.5" /> #{position}
+                                      <Trophy className="w-2.5 h-2.5" /> 
+                                      {studentRank === 1 ? "1st" : studentRank === 2 ? "2nd" : studentRank === 3 ? "3rd" : `${studentRank}th`}
                                     </span>
                                   )}
 
